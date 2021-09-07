@@ -7,6 +7,7 @@
     <groupId>org.example</groupId>
     <artifactId>CateringApp</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -35,8 +36,11 @@
             <artifactId>jstl</artifactId>
             <scope>provided</scope>
         </dependency>
-
-
+        <dependency>
+        <groupId>org.thymeleaf</groupId>
+        <artifactId>thymeleaf</artifactId>
+        <version>3.0.11.RELEASE</version>
+    </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -69,6 +73,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
             <version>2.4.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>5.4.8</version>
         </dependency>
 
     </dependencies>
