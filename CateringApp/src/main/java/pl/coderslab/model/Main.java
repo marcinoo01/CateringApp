@@ -1,16 +1,27 @@
 package pl.coderslab.model;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.coderslab.repository.UserRepository;
 
+
+@Configuration
 public class Main {
-    public static void main(String[] args) {
-        LocalDate localDate = LocalDateTime.now().toLocalDate();
-        System.out.println(localDate);
-        Client client = new Client();
-        Order order = new Order();
-        order.setStartDate(LocalDate.now());
-        order.calculateExpireDateAndLength(order.getStartDate(), 362);
-        System.out.println(order);
+
+    private UserRepository userRepository;
+
+    public Main(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+
+//        userRepository.delete(userRepository.getById(5L));
+//        User user2 = new User.Builder().username("Spike")
+//                .password(passwordEncoder.
+//                        encode("1234")).
+//                        email("spike13@interia.pl").
+//                        role("ROLE_USER").
+//                        build();
+//        userRepository.save(user2);
     }
+
+
 }
