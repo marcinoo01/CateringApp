@@ -17,6 +17,7 @@ public class UserController {
     private UserService userService;
     private UserRepository userRepository;
 
+
     public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
@@ -30,7 +31,8 @@ public class UserController {
 
 
     @GetMapping("/admin")
-    public String forAdmin() {
+    public String forAdmin(Model model) {
+        model.addAttribute("users", userService.findAll());
         return "views/admin";
     }
 
@@ -52,7 +54,7 @@ public class UserController {
         if (result.hasErrors()) {
             return "form/register";
         }
-        userService.addUser(user);
+        userService.add(user);
         return "redirect:/user";
     }
 

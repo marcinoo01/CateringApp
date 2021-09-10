@@ -29,9 +29,6 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    public User(User user) {
-    }
-
     public User() {
     }
 
@@ -40,7 +37,7 @@ public class User implements UserDetails {
     private Long id;
 
     @NotBlank(message = "Username cannot be empty")
-    @Size(min = 3, max = 60)
+    @Size(min = 3, max = 60, message = "Username must be between 3 and 60 chars")
     private String username;
 
     @Size(min = 4, max = 60, message = "Password must be between 4 and 60 chars.")

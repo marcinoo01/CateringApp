@@ -3,8 +3,10 @@ package pl.coderslab.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -12,7 +14,7 @@ import java.time.temporal.ChronoUnit;
 @Getter
 @Setter
 @ToString
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -28,10 +30,16 @@ public class Order {
     private Long remainDays;
 
     @Column(name = "start_date")
+    @FutureOrPresent
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
     @Column(name = "expire_date")
+    @FutureOrPresent
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate expireDate;
+
+    private String kcal;
 
     @PrePersist
     public void startDate(){
@@ -43,7 +51,12 @@ public class Order {
         this.expireDate = startDate.plusDays(lengthInDays);
     }
 
+    public Long calculateLengthOfPlan(LocalDate startDate, LocalDate expireDate){
+        return ChronoUnit.DAYS.between(startDate, expireDate);
+    }
+
     public Long getCalculateRemainDays(){
          return ChronoUnit.DAYS.between(LocalDate.now(), this.expireDate);
     }
+
 }
