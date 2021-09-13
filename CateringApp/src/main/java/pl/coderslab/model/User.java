@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Getter
@@ -51,6 +52,9 @@ public class User implements UserDetails {
     private LocalDate createdOn;
 
     private String role;
+
+    @OneToMany
+    private List<Order> orders;
 
     @PrePersist
     public void prePersist() {

@@ -19,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    private UserDetailsServiceImplementation userDetailsService;
+    private final UserDetailsServiceImplementation userDetailsService;
 
     public SecurityConfig(UserDetailsServiceImplementation userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -32,13 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
         http
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/hello").permitAll()
-                .antMatchers("/user").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                .antMatchers("/admin").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/successLogin", true);
     }
 }

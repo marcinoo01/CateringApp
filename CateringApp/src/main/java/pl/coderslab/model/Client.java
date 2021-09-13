@@ -1,6 +1,7 @@
 package pl.coderslab.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 @Table(name = "clients")
 public class Client {
     @Id
@@ -63,6 +65,7 @@ public class Client {
     private String description;
 
     @OneToMany
+    @Column(name = "orders_user")
     private List<Order> orders;
 
     @ManyToMany
@@ -74,5 +77,92 @@ public class Client {
     @PrePersist
     public void prePersist() {
         createdOn = LocalDate.now();
+    }
+
+    public static class Builder {
+        private String name;
+        private String surname;
+        private String diet;
+        private String email;
+        private Long phoneNumber;
+        private City city;
+        private String address;
+        private String zip;
+        private String description;
+        private List<Order> orders;
+        private List<Diet> favouriteDiets;
+
+        public Builder name (String val){
+            name = val;
+            return this;
+        }
+
+        public Builder surname (String val){
+            surname = val;
+            return this;
+        }
+
+        public Builder diet (String val){
+            diet = val;
+            return this;
+        }
+
+        public Builder email (String val){
+            email = val;
+            return this;
+        }
+
+        public Builder phoneNumber (Long val){
+            phoneNumber = val;
+            return this;
+        }
+
+        public Builder city (City val){
+            city = val;
+            return this;
+        }
+
+        public Builder address (String val){
+            address = val;
+            return this;
+        }
+
+        public Builder zip (String val){
+            zip = val;
+            return this;
+        }
+
+        public Builder description (String val){
+            description = val;
+            return this;
+        }
+
+        public Builder orders (Order...val){
+            for (Order s : val) {
+                orders.add(s);
+            }
+            return this;
+        }
+
+        public Builder favouriteDiets (Diet...val){
+            for (Diet s : val) {
+                favouriteDiets.add(s);
+            }
+            return this;
+        }
+    }
+
+    private Client(Builder builder){
+        name = builder.name;
+        surname = builder.surname;
+        email = builder.email;
+        diet = builder.diet;
+        phoneNumber = builder.phoneNumber;
+        city = builder.city;
+        address = builder.address;
+        zip = builder.zip;
+        description = builder.description;
+        orders = builder.orders;
+        favouriteDiets = builder.favouriteDiets;
     }
 }

@@ -6,7 +6,7 @@ import pl.coderslab.repository.ClientRepository;
 
 @Service
 public class ClientService {
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
     public ClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
@@ -15,4 +15,5 @@ public class ClientService {
     public void add(Client client){
         clientRepository.save(client);
     }
+
 }

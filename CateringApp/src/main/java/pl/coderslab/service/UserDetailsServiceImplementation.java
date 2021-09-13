@@ -10,7 +10,7 @@ import pl.coderslab.repository.UserRepository;
 @Service
 public class UserDetailsServiceImplementation implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserDetailsServiceImplementation(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -22,7 +22,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
                 orElseThrow(() -> new UsernameNotFoundException(("User not found")));
     }
 
-    public void createUser(User user){
+    public void createUser(User user) {
         userRepository.save(user);
     }
 }
