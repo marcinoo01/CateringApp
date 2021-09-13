@@ -16,6 +16,10 @@
 <a href="/diets">Diets</a>
 <a href="/price-list">Price list</a>
 <a href="/contact">Contact</a>
-<h1>HELLO USER</h1>
+<h1>HELLO ${username}</h1>
+<a href="/history">History</a>
+<a href="/favourite">Favourite</a>
+<a href="/user/diets/${id}">Order</a>
+<a href="/logout">Logout</a>
 </body>
 </html>

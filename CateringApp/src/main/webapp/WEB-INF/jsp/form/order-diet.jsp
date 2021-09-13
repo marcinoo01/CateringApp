@@ -10,13 +10,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>order-dier</title>
     <style>
         .error {
             color: maroon;
         }
     </style>
-
 </head>
 <body>
 <h1></h1>
@@ -60,6 +59,11 @@
             <td><form:label path="address">Adres</form:label></td>
             <td><form:input path="address"/></td>
             <td><form:errors path="address" cssClass="error"/></td>
+        </tr>
+        <tr>
+            <td>
+                <form:hidden path="diet"/>
+            </td>
         </tr>
         <tr>
             <td><input type="submit" value="confirm"></td>

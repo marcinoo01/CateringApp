@@ -1,4 +1,4 @@
-package pl.coderslab.controller;
+package pl.coderslab.controller.client;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,9 @@ public class DietController {
     }
 
     @ModelAttribute("kcal")
-    public List<Integer> kcal() {
+    public List<Integer> kcal(HttpSession session) {
+        List<Integer> listKcal = Arrays.asList(1500, 2000, 2500, 3000);
+        session.setAttribute("kcal", listKcal);
         return Arrays.asList(1500, 2000, 2500, 3000);
     }
 
@@ -41,7 +43,7 @@ public class DietController {
     @GetMapping("/diets/{id}")
     public String dietsId(@PathVariable Long id, Model model, Order order) {
         model.addAttribute("order", new Order());
-        return "service/diets-service";
+        return "form/diets-service";
     }
 
     @PostMapping("/diets/{idDiet}")
@@ -50,9 +52,8 @@ public class DietController {
                           @RequestParam String kcal,
                           @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                           @RequestParam("expireDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate expireDate,
-                          Model model, HttpSession session) {
-        //todo valid start date before 'today'
-//        session.setAttribute("kcal", new Class());
+                          HttpSession session) {
+        dietService.setDietRequestedDataToSession(idDiet, kcal, startDate, expireDate, session);
         return printOrderData(idDiet, kcal, startDate, expireDate);
     }
 

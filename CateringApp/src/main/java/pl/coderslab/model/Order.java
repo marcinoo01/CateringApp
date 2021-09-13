@@ -46,17 +46,8 @@ public class Order {
         startDate = LocalDate.now();
     }
 
-    public void calculateExpireDateAndLength(LocalDate startDate, int lengthInDays){
-        this.lengthWholePlan = lengthInDays;
-        this.expireDate = startDate.plusDays(lengthInDays);
-    }
-
     public Long calculateLengthOfPlan(LocalDate startDate, LocalDate expireDate){
         return ChronoUnit.DAYS.between(startDate, expireDate);
-    }
-
-    public Long getCalculateRemainDays(){
-         return ChronoUnit.DAYS.between(LocalDate.now(), this.expireDate);
     }
 
 }

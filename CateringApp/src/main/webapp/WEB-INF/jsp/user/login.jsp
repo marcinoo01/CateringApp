@@ -8,7 +8,7 @@
             color: #ff4672;
         }
     </style>
-    <title>Title</title>
+    <title>Login</title>
 </head>
 <body>
 <a href="/login">Login</a>
@@ -26,6 +26,10 @@
         <tr>
             <td><form:label path="password">password</form:label></td>
             <td><form:password path="password"/></td>
+        </tr>
+        <tr>
+            <td><label for="remember-me" id="remember-me">Remember me</label></td>
+            <td><input type="checkbox" value="Remember me"/></td>
         </tr>
         <tr>
             <td><input type="submit" value="login"></td>
