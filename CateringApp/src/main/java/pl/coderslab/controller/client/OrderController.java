@@ -3,35 +3,31 @@ package pl.coderslab.controller.client;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import pl.coderslab.model.Client;
+import pl.coderslab.repository.CityRepository;
 import pl.coderslab.service.OrderService;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
 public class OrderController {
 
-    private OrderService orderService;
+    private final OrderService orderService;
+    private final CityRepository cityRepository;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, CityRepository cityRepository) {
         this.orderService = orderService;
-    }
-
-    @ModelAttribute("cityName")
-    public List<String> cities() {
-        return Arrays.asList("Cracow", "Warsaw", "Gdansk", "Wrocław", "Łódź");
+        this.cityRepository = cityRepository;
     }
 
 
     @GetMapping("/order")
     public String order(Model model, HttpSession session) {
+        model.addAttribute("cities", cityRepository.findAll());
         Client client = new Client();
-        String dietName = (String) session.getAttribute("dietName");
-        client.setDiet(dietName);
         model.addAttribute(client);
         return "form/order-diet";
     }

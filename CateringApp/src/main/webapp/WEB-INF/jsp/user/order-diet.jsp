@@ -1,22 +1,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>order-diet</title>
-    <style>
-        .error {
-            color: maroon;
-        }
-    </style>
+    <title>Order diet</title>
 </head>
 <body>
-<h1></h1>
-<a href="/login">Login</a>
-<a href="/localizations">Localizations</a>
-<a href="/diets">Diets</a>
-<a href="/price-list">Price list</a>
-<a href="/contact">Contact</a>
 <table>
     <form:form modelAttribute="client" method="post">
         <tr>
@@ -28,11 +16,6 @@
             <td><form:label path="surname">Surname</form:label></td>
             <td><form:input path="surname"/></td>
             <td><form:errors path="surname" cssClass="error"/></td>
-        </tr>
-        <tr>
-            <td><form:label path="email">Email</form:label></td>
-            <td><form:input path="email"/></td>
-            <td><form:errors path="email" cssClass="error"/></td>
         </tr>
         <tr>
             <td><form:label path="city">City</form:label></td>
@@ -57,10 +40,9 @@
             <td><form:label path="description">Description</form:label></td>
             <td><form:textarea path="description"></form:textarea></td>
         </tr>
-        <tr>
-            <td>
-                <form:hidden path="diet"/>
-            </td>
+        <td>
+            <form:hidden path="diet"/>
+        </td>
         </tr>
         <tr>
             <td><input type="submit" value="confirm"></td>
@@ -69,4 +51,3 @@
 </table>
 </body>
 </html>
-

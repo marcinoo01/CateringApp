@@ -41,7 +41,9 @@ public class DietController {
     }
 
     @GetMapping("/diets/{id}")
-    public String dietsId(@PathVariable Long id, Model model, Order order) {
+    public String dietsId(@PathVariable Long id, Model model, HttpSession session) {
+        Optional<Diet> diet = dietRepository.findById(id);
+        session.setAttribute("diet", diet.get());
         model.addAttribute("order", new Order());
         return "form/diets-service";
     }
@@ -61,7 +63,7 @@ public class DietController {
         Optional<Diet> diet = dietRepository.findById(idDiet);
         Double price = dietService.getPrizeWholePlan(kcal, startDate, expireDate, idDiet);
         return "<h1>Your order</h1>" +
-                "<p>Type of diet: " + diet.get().getDietName() +
+//                "<p>Type of diet: " + diet.get().getDietName() +
                 "</p><p>Start order: " +
                 startDate +
                 "</p><p>Expire order: " +

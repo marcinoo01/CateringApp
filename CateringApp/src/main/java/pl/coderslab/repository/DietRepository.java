@@ -13,10 +13,16 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface DietRepository extends JpaRepository<Diet, Long> {
-    Optional<Diet> findByDietName(String dietName);
+
+    Optional<Diet> findDietById(Long id);
+    Diet findDietByName(String name);
+
+//    @Modifying
+//    @Query("update Diet d set d.description = :description where d.id = :id")
+//    void updateDescription(@Param(value = "id") Long id, @Param(value = "description") String description);
 
     @Modifying
-    @Query("update Diet d set d.description = :description where d.id = :id")
-    void updateDescription(@Param(value = "id") Long id, @Param(value = "description") String description);
+    @Query("update Diet d set d.totalAmountOfAcquirer = :totalAmountOfAcquirer where d.id = :id")
+    void updateAmountOfAcquirer(@Param(value = "id") Long id, @Param(value = "totalAmountOfAcquirer") Long totalAmountOfAcquirer);
 }
 

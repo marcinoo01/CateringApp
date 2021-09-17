@@ -8,7 +8,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -37,15 +36,15 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Username cannot be empty")
     @Size(min = 3, max = 60, message = "Username must be between 3 and 60 chars")
+    @Column(unique = true)
     private String username;
 
     @Size(min = 4, max = 60, message = "Password must be between 4 and 60 chars.")
     private String password;
 
-    @NotBlank
     @Size(min = 5, max = 150)
+    @Column(unique = true)
     private String email;
 
     @Column(name = "created_on")
@@ -53,8 +52,14 @@ public class User implements UserDetails {
 
     private String role;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Order> orders;
+
+
+    public List<Order> add(Order order) {
+        orders.add(order);
+        return orders;
+    }
 
     @PrePersist
     public void prePersist() {
@@ -66,6 +71,10 @@ public class User implements UserDetails {
         private String password;
         private String email;
         private String role;
+        private List<Diet> favouriteDiets;
+
+        public Builder() {
+        }
 
         public Builder username(String val) {
             username = val;
@@ -87,7 +96,8 @@ public class User implements UserDetails {
             return this;
         }
 
-        public User build(){
+
+        public User build() {
             return new User(this);
         }
     }

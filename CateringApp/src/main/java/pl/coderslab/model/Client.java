@@ -10,7 +10,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.List;
 
 
 @Entity
@@ -28,8 +27,6 @@ public class Client {
     @JoinColumn(nullable = true)
     private User user;
 
-    @Column(name = "city_name")
-    private String cityName;
 
     @Size(min = 2, max = 50, message = "input between 2 and 50 chars")
     private String name;
@@ -37,8 +34,8 @@ public class Client {
     @Size(min = 2, max = 50)
     private String surname;
 
-    @NotBlank
-    private String diet;
+    @OneToOne
+    private Diet diet;
 
     @Size(min = 5, max = 150, message = "input between 5 and 150 chars")
     private String email;
@@ -56,7 +53,6 @@ public class Client {
     @OneToOne
     private City city;
 
-
     @Column(name = "zip_code")
     @Size(min = 6, max = 6, message = "input should have 6 chars")
     private String zip;
@@ -64,14 +60,8 @@ public class Client {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany
-    @Column(name = "orders_user")
-    private List<Order> orders;
-
-    @ManyToMany
-    @JoinTable(name = "favourite_diet")
-    @Column(name = "diet_id")
-    private List<Diet> favouriteDiets;
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Order order;
 
 
     @PrePersist
@@ -79,90 +69,92 @@ public class Client {
         createdOn = LocalDate.now();
     }
 
+
     public static class Builder {
         private String name;
         private String surname;
-        private String diet;
+        private Diet diet;
         private String email;
         private Long phoneNumber;
         private City city;
         private String address;
         private String zip;
+        private User user;
         private String description;
-        private List<Order> orders;
-        private List<Diet> favouriteDiets;
+        private Order order;
 
-        public Builder name (String val){
+        public Builder name(String val) {
             name = val;
             return this;
         }
 
-        public Builder surname (String val){
+        public Builder surname(String val) {
             surname = val;
             return this;
         }
 
-        public Builder diet (String val){
-            diet = val;
+        public Builder user(User val){
+            user = val;
             return this;
         }
 
-        public Builder email (String val){
+
+        public Builder email(String val) {
             email = val;
             return this;
         }
 
-        public Builder phoneNumber (Long val){
+        public Builder diet(Diet val){
+            diet = val;
+            return this;
+        }
+
+        public Builder phoneNumber(Long val) {
             phoneNumber = val;
             return this;
         }
 
-        public Builder city (City val){
+        public Builder city(City val) {
             city = val;
             return this;
         }
 
-        public Builder address (String val){
+        public Builder address(String val) {
             address = val;
             return this;
         }
 
-        public Builder zip (String val){
+        public Builder zip(String val) {
             zip = val;
             return this;
         }
 
-        public Builder description (String val){
+        public Builder description(String val) {
             description = val;
             return this;
         }
 
-        public Builder orders (Order...val){
-            for (Order s : val) {
-                orders.add(s);
-            }
+        public Builder order(Order val){
+            order = val;
             return this;
         }
 
-        public Builder favouriteDiets (Diet...val){
-            for (Diet s : val) {
-                favouriteDiets.add(s);
-            }
-            return this;
+        public Client build() {
+            return new Client(this);
         }
     }
 
-    private Client(Builder builder){
+    private Client(Builder builder) {
         name = builder.name;
         surname = builder.surname;
         email = builder.email;
-        diet = builder.diet;
+        user = builder.user;
         phoneNumber = builder.phoneNumber;
-        city = builder.city;
         address = builder.address;
         zip = builder.zip;
         description = builder.description;
-        orders = builder.orders;
-        favouriteDiets = builder.favouriteDiets;
+        order = builder.order;
+        city = builder.city;
+        diet = builder.diet;
     }
 }

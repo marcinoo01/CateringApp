@@ -32,37 +32,37 @@ public class DietUserController {
         return Arrays.asList(1500, 2000, 2500, 3000);
     }
 
-    @GetMapping("/user/diets/{idDiet}")
-    public String orderUser(Model model) {
+
+    @GetMapping("user/diets")
+    public String dietUser(Model model, HttpSession session){
+        model.addAttribute("idUser" , session.getAttribute("idUser"));
+        model.addAttribute("diets", dietService.findAll());
+        return "user/select-diet";
+    }
+
+    @GetMapping("/user/diets/{idUser}/{idDiet}")
+    public String orderUser(Model model, @PathVariable String idDiet) {
         model.addAttribute(new Order());
         return "user/diet-selection";
     }
 
-    @PostMapping("/user/diets/{idDiet}")
-    @ResponseBody
+    @PostMapping("/user/diets/{idUser}/{idDiet}")
     public String orderUser(@PathVariable Long idDiet,
                           @RequestParam String kcal,
                           @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                           @RequestParam("expireDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate expireDate,
-                          HttpSession session) {
-        dietService.setDietRequestedDataToSession(idDiet, kcal, startDate, expireDate, session);
-        return printOrderData(idDiet, kcal, startDate, expireDate);
-    }
-
-    private String printOrderData(Long idDiet, String kcal, LocalDate startDate, LocalDate expireDate) {
-        Optional<Diet> diet = dietRepository.findById(idDiet);
-        if(!diet.isPresent()){
-            return "Diet not selected";
-        }
+                          HttpSession session, Model model) {
         Double price = dietService.getPrizeWholePlan(kcal, startDate, expireDate, idDiet);
-        return "<h1>Your order</h1>" +
-                "<p>Type of diet: " + diet.get().getDietName() +
-                "</p><p>Start order: " +
-                startDate +
-                "</p><p>Expire order: " +
-                expireDate + "</p>" +
-                "<p>Amount of daily kcal: " + kcal +
-                "</p><p>Total cost: " + price +
-                "</p><a href='/user/order/{id}'>click to enter your data</a>";
+        Optional<Diet> diet = dietRepository.findById(idDiet);
+        session.setAttribute("diet", diet.get());
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("expireDate", expireDate);
+        model.addAttribute("kcal", kcal);
+        model.addAttribute("id");
+        model.addAttribute("price", price);
+        model.addAttribute("idUser", session.getAttribute("idUser"));
+        model.addAttribute("dietName", diet.get());
+        dietService.setDietRequestedDataToSession(idDiet, kcal, startDate, expireDate, session);
+        return "user/diet-order-view";
     }
 }
