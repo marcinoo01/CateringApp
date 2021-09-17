@@ -15,11 +15,8 @@ public class Diet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String dietName;
+    private String name;
     private Double price;
-    @OneToOne
-    @JoinColumn
-    private Order lengthWholePlan;
 
     public Diet() {
     }
@@ -27,21 +24,24 @@ public class Diet {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "amount_of_acquirer")
-    private Long amountOfAcquirer;
-
     @Column(name = "total_amount_of_acquirer")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long totalAmountOfAcquirer;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
     @Column(name = "diet_id")
     private List<Client> clients;
+
+    public List<Client> add(Client client){
+        clients.add(client);
+        return clients;
+    }
 
     public static class Builder {
         private String dietName;
         private Double price;
         private String description;
+        private List<Client> clients;
 
 
         public Builder(String dietName, Double price) {
@@ -49,8 +49,18 @@ public class Diet {
             this.price = price;
         }
 
+        public Builder price(Double val) {
+            price = val;
+            return this;
+        }
+
         public Builder description(String val) {
-            this.description = val;
+            description = val;
+            return this;
+        }
+
+        public Builder clients(Client client) {
+            clients.add(client);
             return this;
         }
 
@@ -59,9 +69,10 @@ public class Diet {
         }
     }
 
-    private Diet(Builder builder) {
-        dietName = builder.dietName;
+    public Diet(Builder builder) {
+        name = builder.dietName;
         price = builder.price;
         description = builder.description;
+        clients = builder.clients;
     }
 }

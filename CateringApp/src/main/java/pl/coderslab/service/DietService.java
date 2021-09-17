@@ -19,8 +19,8 @@ public class DietService {
         this.dietRepository = dietRepository;
     }
 
-    public void updateDietDescription(long id, String description) {
-        dietRepository.updateDescription(id, description);
+    public Diet findByDietName(String dietName){
+        return dietRepository.findDietByName(dietName);
     }
 
     public List<Diet> findAll() {
@@ -98,6 +98,6 @@ public class DietService {
         session.setAttribute("kcal", kcal);
         session.setAttribute("startDate", startDate);
         session.setAttribute("expireDate", expireDate);
-        session.setAttribute("dietName", diet.get().getDietName());
+//        session.setAttribute("dietName", diet.get().getDietName());
     }
 }

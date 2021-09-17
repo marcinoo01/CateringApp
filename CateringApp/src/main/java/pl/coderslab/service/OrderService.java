@@ -24,14 +24,16 @@ public class OrderService {
         orderRepository.save(order);
     }
 
+
     public void setOrderRequestedDataToSession(Client client, HttpSession session) {
         session.setAttribute("address", client.getAddress());
         session.setAttribute("email", client.getEmail());
         session.setAttribute("surname", client.getSurname());
         session.setAttribute("zip", client.getZip());
-        session.setAttribute("city", client.getCityName());
+        session.setAttribute("city", client.getCity());
         session.setAttribute("name", client.getName());
         session.setAttribute("phoneNumber", client.getPhoneNumber());
+        session.setAttribute("description", client.getDescription());
     }
 
 

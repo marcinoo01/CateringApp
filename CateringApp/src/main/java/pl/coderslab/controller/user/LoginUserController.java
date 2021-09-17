@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.coderslab.model.User;
 import pl.coderslab.repository.UserRepository;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
@@ -21,10 +22,9 @@ public class LoginUserController {
 
 
     @GetMapping("/user")
-    public String forUser(Principal principal, Model model) {
-        userRepository.findByusername(principal.getName());
+    public String forUser(Principal principal, Model model, HttpSession session) {
         model.addAttribute("username", principal.getName());
-        model.addAttribute("id", userRepository.findByusername(principal.getName()).get().getId());
+        session.setAttribute("idUser", userRepository.findByusername(principal.getName()).get().getId());
         return "user/helloUser";
     }
 

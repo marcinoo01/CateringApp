@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: marcinmistela
-  Date: 08/09/2021
-  Time: 12:24
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -32,7 +25,7 @@
   <c:forEach items="${diets}" var="diet">
     <tr>
       <td>
-        ${diet.dietName}
+        ${diet.name}
       </td>
       <td>
         ${diet.description}
