@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class SuccessLogin {
     @GetMapping("/successLogin")
-    public String successLogin(HttpServletRequest req, HttpSession session) {
+    public String successLogin(HttpServletRequest req) {
         if (req.isUserInRole("ROLE_ADMIN")) {
             return "redirect:/admin";
         }

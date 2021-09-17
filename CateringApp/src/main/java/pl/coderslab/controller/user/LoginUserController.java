@@ -38,7 +38,7 @@ public class LoginUserController {
     @RequestMapping("/login/history")
     public String history(Model model, Principal principal){
         model.addAttribute("historyList", principal.getName());
-        return "views/history";
+        return "user/history";
     }
 
 

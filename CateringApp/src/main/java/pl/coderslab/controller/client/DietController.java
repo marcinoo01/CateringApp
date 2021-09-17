@@ -63,7 +63,7 @@ public class DietController {
         Optional<Diet> diet = dietRepository.findById(idDiet);
         Double price = dietService.getPrizeWholePlan(kcal, startDate, expireDate, idDiet);
         return "<h1>Your order</h1>" +
-//                "<p>Type of diet: " + diet.get().getDietName() +
+                "<p>Type of diet: " + diet.get().getName() +
                 "</p><p>Start order: " +
                 startDate +
                 "</p><p>Expire order: " +

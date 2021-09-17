@@ -41,7 +41,7 @@ public class DietUserController {
     }
 
     @GetMapping("/user/diets/{idUser}/{idDiet}")
-    public String orderUser(Model model, @PathVariable String idDiet) {
+    public String orderUser(Model model) {
         model.addAttribute(new Order());
         return "user/diet-selection";
     }
