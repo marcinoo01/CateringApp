@@ -6,13 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.model.*;
-import pl.coderslab.repository.CityRepository;
 import pl.coderslab.repository.DietRepository;
 import pl.coderslab.repository.OrderRepository;
 import pl.coderslab.repository.UserRepository;
 import pl.coderslab.service.ClientService;
-import pl.coderslab.service.DietService;
-import pl.coderslab.service.UserService;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
@@ -22,20 +19,14 @@ public class PaymentUserController {
 
     private final UserRepository userRepository;
     private final ClientService clientService;
-    private final UserService userService;
-    private final CityRepository cityRepository;
     private final OrderRepository orderRepository;
     private final DietRepository dietRepository;
-    private final DietService dietService;
 
-    public PaymentUserController(UserRepository userRepository, ClientService clientService, UserService userService, CityRepository cityRepository, OrderRepository orderRepository, DietRepository dietRepository, DietService dietService) {
+    public PaymentUserController(UserRepository userRepository, ClientService clientService, OrderRepository orderRepository, DietRepository dietRepository) {
         this.userRepository = userRepository;
         this.clientService = clientService;
-        this.userService = userService;
-        this.cityRepository = cityRepository;
         this.orderRepository = orderRepository;
         this.dietRepository = dietRepository;
-        this.dietService = dietService;
     }
 
     @GetMapping("/user/payment")

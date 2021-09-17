@@ -22,7 +22,7 @@ public class City {
     private String cityName;
 
     public static class Builder{
-        private String cityName;
+        private final String cityName;
 
         public Builder(String val){
             this.cityName = val;

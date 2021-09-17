@@ -41,7 +41,7 @@ public class Order {
 
     private String kcal;
 
-    @Column(name = "created_om")
+    @Column(name = "created_on")
     private LocalDate created;
 
 

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class PrizeController {
 
-    private DietService dietService;
+    private final DietService dietService;
 
     public PrizeController(DietService dietService) {
         this.dietService = dietService;

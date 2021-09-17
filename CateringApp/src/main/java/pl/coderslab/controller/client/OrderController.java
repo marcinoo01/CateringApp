@@ -25,7 +25,7 @@ public class OrderController {
 
 
     @GetMapping("/order")
-    public String order(Model model, HttpSession session) {
+    public String order(Model model) {
         model.addAttribute("cities", cityRepository.findAll());
         Client client = new Client();
         model.addAttribute(client);
