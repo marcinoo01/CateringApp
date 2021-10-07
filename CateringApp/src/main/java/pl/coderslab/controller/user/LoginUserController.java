@@ -15,6 +15,26 @@ import java.security.Principal;
 public class LoginUserController {
 
     private final UserRepository userRepository;
+    /* Simple Singleton implementation
+    public class UserRepository {
+        private static UserRepository userRepository;
+
+        private UserRepository(){
+        }
+        q
+
+        public static createRepository(){
+            if(userRepository == null){
+                userRepository = new UserRepository();
+            }
+            return userRepository;
+        }
+
+    }
+
+   UserRepository ur = UerRepository.createRepository();
+
+     */
 
     public LoginUserController(UserRepository userRepository) {
         this.userRepository = userRepository;

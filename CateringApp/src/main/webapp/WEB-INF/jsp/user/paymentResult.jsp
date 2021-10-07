@@ -42,7 +42,7 @@
         <td>Expire date: ${expireDate}
         </td>
     </tr>
-    <tr>/
+    <tr>
         <td>Diet name: ${diet.name}
         </td>
     </tr>

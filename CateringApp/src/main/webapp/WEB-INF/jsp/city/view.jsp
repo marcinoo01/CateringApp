@@ -18,5 +18,7 @@
 <a href="/diets">Click to make an order</a>
 or
 <a href="/price-list">here to see a price</a>
+<br>
+<a href="/">homepage</a>
 </body>
 </html>

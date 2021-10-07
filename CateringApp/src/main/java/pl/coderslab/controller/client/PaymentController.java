@@ -125,6 +125,8 @@ public class PaymentController {
                 "</td></tr><tr><td>" + "Diet name: " + dietName.getName() +
                 "</td></tr><tr><td>" + "Kcal: " + kcal +
                 "</td></tr><tr><td>" + "prize: " + prize +
-                "</td></tr><tr><td>Type of payment: " + typeOfPayment + "</td></tr>";
+                "</td></tr><tr><td>Type of payment: " + typeOfPayment + "</td></tr>" +
+                "</table>" +
+                "<a href='/'>Back to homepage</a>";
     }
 }
