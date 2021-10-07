@@ -28,10 +28,6 @@
             <td><form:password path="password"/></td>
         </tr>
         <tr>
-            <td><label for="remember-me" id="remember-me">Remember me</label></td>
-            <td><input type="checkbox" value="Remember me"/></td>
-        </tr>
-        <tr>
             <td><input type="submit" value="login"></td>
         </tr>
         <tr>
